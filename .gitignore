@@ -1,0 +1,67 @@
+# ============================================================
+#  Campus Complaint Portal – .gitignore
+#  Java / Maven / Jakarta EE / IDE / OS artefacts
+# ============================================================
+
+# ----- Maven build output -----
+target/
+*.class
+
+# ----- Maven wrapper caches (add wrapper if you adopt it) -----
+.mvn/wrapper/maven-wrapper.jar
+
+# ----- Packaged archives (never commit compiled artefacts) -----
+*.war
+*.jar
+*.ear
+
+# ----- IDE: IntelliJ IDEA -----
+.idea/
+*.iml
+*.iws
+*.ipr
+out/
+
+# ----- IDE: Eclipse / Spring Tool Suite -----
+.classpath
+.project
+.settings/
+.springBeans
+.sts4-cache/
+
+# ----- IDE: NetBeans -----
+nbproject/private/
+nbbuild/
+dist/
+nbdist/
+.nb-gradle/
+
+# ----- IDE: VS Code -----
+.vscode/
+*.code-workspace
+
+# ----- Local environment / secrets -----
+# Add any file that stores DB passwords or API keys here.
+# NEVER commit credentials to version control.
+src/main/resources/db.properties
+*.env
+.env
+.env.*
+local.properties
+secret.properties
+
+# ----- Application Logs -----
+logs/
+*.log
+*.log.*
+log/
+
+# ----- OS artefacts -----
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ----- Misc -----
+*.swp
+*.bak
+*.tmp

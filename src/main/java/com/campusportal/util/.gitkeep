@@ -1,0 +1,4 @@
+# This package will contain shared utility/helper classes.
+# Examples: DBConnection.java (database connection pool/singleton),
+#           PasswordUtil.java (bcrypt wrapper), ValidationUtil.java.
+# Team Member 2 (Auth) creates DBConnection and PasswordUtil.

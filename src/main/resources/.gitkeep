@@ -1,0 +1,8 @@
+# src/main/resources/ – Application classpath resources
+#
+# Place non-Java files that the application needs at runtime here.
+# Example: db.properties (database connection settings)
+#
+# IMPORTANT: db.properties is in .gitignore because it contains secrets
+# (database URL, username, password). Each team member creates their own
+# local copy. A template file can be committed as db.properties.template.
