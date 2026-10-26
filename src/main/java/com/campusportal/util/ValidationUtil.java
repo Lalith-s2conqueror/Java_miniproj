@@ -15,6 +15,11 @@ public final class ValidationUtil {
     public static final int MAX_EMAIL_LENGTH = 255;
     public static final int MAX_NAME_LENGTH = 150;
     public static final int MAX_IDENTIFIER_LENGTH = 60;
+    public static final int MIN_TITLE_LENGTH = 3;
+    public static final int MAX_TITLE_LENGTH = 200;
+    public static final int MIN_DESCRIPTION_LENGTH = 10;
+    public static final int MAX_DESCRIPTION_LENGTH = 5000;
+    public static final int MAX_LOCATION_LENGTH = 200;
 
     private ValidationUtil() {
         // Utility class; prevent instantiation
@@ -86,6 +91,40 @@ public final class ValidationUtil {
      */
     public static boolean isValidFullName(String fullName) {
         return isNotBlank(fullName) && fullName.trim().length() <= MAX_NAME_LENGTH;
+    }
+
+    /**
+     * Validates a complaint title.
+     *
+     * @param title the title to validate
+     * @return {@code true} if not blank and within length bounds [3, 200]
+     */
+    public static boolean isValidComplaintTitle(String title) {
+        return isNotBlank(title)
+                && title.trim().length() >= MIN_TITLE_LENGTH
+                && title.trim().length() <= MAX_TITLE_LENGTH;
+    }
+
+    /**
+     * Validates a complaint description.
+     *
+     * @param description the description to validate
+     * @return {@code true} if not blank and within length bounds [10, 5000]
+     */
+    public static boolean isValidComplaintDescription(String description) {
+        return isNotBlank(description)
+                && description.trim().length() >= MIN_DESCRIPTION_LENGTH
+                && description.trim().length() <= MAX_DESCRIPTION_LENGTH;
+    }
+
+    /**
+     * Validates an optional complaint location.
+     *
+     * @param location the location to validate (can be null or blank)
+     * @return {@code true} if null/blank or within length bound [0, 200]
+     */
+    public static boolean isValidComplaintLocation(String location) {
+        return location == null || location.trim().length() <= MAX_LOCATION_LENGTH;
     }
 
     /**

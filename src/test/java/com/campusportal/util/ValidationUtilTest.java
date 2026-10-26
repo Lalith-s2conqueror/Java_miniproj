@@ -92,4 +92,40 @@ class ValidationUtilTest {
         assertNull(ValidationUtil.safeTrim(null));
         assertEquals("hello", ValidationUtil.safeTrim("  hello  "));
     }
+
+    @Test
+    @DisplayName("Complaint title validation")
+    void testComplaintTitleValidation() {
+        assertTrue(ValidationUtil.isValidComplaintTitle("Broken AC in Lab 3"));
+        assertTrue(ValidationUtil.isValidComplaintTitle("ABC")); // 3 chars min
+        assertFalse(ValidationUtil.isValidComplaintTitle(null));
+        assertFalse(ValidationUtil.isValidComplaintTitle(""));
+        assertFalse(ValidationUtil.isValidComplaintTitle("   "));
+        assertFalse(ValidationUtil.isValidComplaintTitle("AB")); // 2 chars - too short
+        assertFalse(ValidationUtil.isValidComplaintTitle("A".repeat(201))); // 201 chars - too long
+        assertTrue(ValidationUtil.isValidComplaintTitle("A".repeat(200))); // 200 chars - max ok
+    }
+
+    @Test
+    @DisplayName("Complaint description validation")
+    void testComplaintDescriptionValidation() {
+        assertTrue(ValidationUtil.isValidComplaintDescription("The air conditioner is making loud noise and leaking."));
+        assertTrue(ValidationUtil.isValidComplaintDescription("1234567890")); // 10 chars min
+        assertFalse(ValidationUtil.isValidComplaintDescription(null));
+        assertFalse(ValidationUtil.isValidComplaintDescription(""));
+        assertFalse(ValidationUtil.isValidComplaintDescription("   "));
+        assertFalse(ValidationUtil.isValidComplaintDescription("123456789")); // 9 chars - too short
+        assertFalse(ValidationUtil.isValidComplaintDescription("A".repeat(5001))); // 5001 chars - too long
+        assertTrue(ValidationUtil.isValidComplaintDescription("A".repeat(5000))); // 5000 chars - max ok
+    }
+
+    @Test
+    @DisplayName("Complaint location validation")
+    void testComplaintLocationValidation() {
+        assertTrue(ValidationUtil.isValidComplaintLocation(null)); // optional
+        assertTrue(ValidationUtil.isValidComplaintLocation(""));
+        assertTrue(ValidationUtil.isValidComplaintLocation("Room 402, Block A"));
+        assertTrue(ValidationUtil.isValidComplaintLocation("A".repeat(200)));
+        assertFalse(ValidationUtil.isValidComplaintLocation("A".repeat(201)));
+    }
 }
