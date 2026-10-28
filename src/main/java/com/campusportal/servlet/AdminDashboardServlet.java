@@ -14,6 +14,10 @@ public class AdminDashboardServlet extends HttpServlet {
                          HttpServletResponse response)
             throws ServletException, IOException {
 
+                request.setAttribute(
+        "successMessage",
+        "Complaint status updated successfully.");
+
         request.getRequestDispatcher(
                 "/WEB-INF/views/admin/dashboard.jsp")
                 .forward(request, response);

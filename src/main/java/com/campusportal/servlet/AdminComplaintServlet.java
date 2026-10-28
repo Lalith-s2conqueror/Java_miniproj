@@ -28,7 +28,8 @@ public class AdminComplaintServlet extends HttpServlet {
         String newStatus = request.getParameter("newStatus");
         String adminRemarks = request.getParameter("adminRemarks");
 
-        // TODO: Update complaint status
+          request.setAttribute("complaints", null);
+request.setAttribute("stats", null);
 
         response.sendRedirect(
                 request.getContextPath()
