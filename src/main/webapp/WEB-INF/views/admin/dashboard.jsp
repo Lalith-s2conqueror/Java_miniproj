@@ -17,6 +17,65 @@
            View complaint: ${pageContext.request.contextPath}/admin/complaints/view?id=<id>
            Logout:         ${pageContext.request.contextPath}/auth/logout
     --%>
-    <p>Admin dashboard – to be implemented.</p>
+    
+    <h1>Admin Dashboard</h1>
+
+<a href="${pageContext.request.contextPath}/auth/logout">
+    Logout
+</a>
+
+<hr>
+
+<h2>Complaint Filters</h2>
+
+<form method="get" action="${pageContext.request.contextPath}/admin/dashboard">
+
+    Status:
+    <input type="text" name="status">
+
+    Category:
+    <input type="text" name="category">
+
+    Search:
+    <input type="text" name="search">
+
+    <button type="submit">Filter</button>
+
+</form>
+
+<hr>
+
+<h2>All Complaints</h2>
+
+<table border="1">
+
+<tr>
+    <th>Complaint ID</th>
+    <th>Student ID</th>
+    <th>Category</th>
+    <th>Status</th>
+    <th>Title</th>
+    <th>Action</th>
+</tr>
+
+<c:forEach items="${complaints}" var="complaint">
+
+<tr>
+    <td>${complaint.complaintId}</td>
+    <td>${complaint.studentId}</td>
+    <td>${complaint.category}</td>
+    <td>${complaint.status}</td>
+    <td>${complaint.title}</td>
+
+    <td>
+        <a href="${pageContext.request.contextPath}/admin/complaints/view?id=${complaint.complaintId}">
+            View
+        </a>
+    </td>
+</tr>
+
+</c:forEach>
+
+</table>
 </body>
 </html>
