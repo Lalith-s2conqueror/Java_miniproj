@@ -1,0 +1,28 @@
+# db.properties.template
+# ============================================================
+# Database connection configuration TEMPLATE
+# ============================================================
+# HOW TO USE:
+#   1. Copy this file to src/main/resources/db.properties
+#   2. Fill in YOUR local database values below
+#   3. NEVER commit db.properties to Git (it is in .gitignore)
+#
+# Each team member keeps their own db.properties locally.
+# ============================================================
+
+# JDBC URL for your local MySQL instance
+# Format: jdbc:mysql://<host>:<port>/<database>?<options>
+db.url=jdbc:mysql://localhost:3306/campus_complaint_portal?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
+
+# MySQL user (should NOT be root in a real project; use a dedicated DB user)
+db.username=your_mysql_username
+
+# MySQL password for the above user
+db.password=your_mysql_password
+
+# JDBC Driver class (MySQL Connector/J 8.x)
+db.driver=com.mysql.cj.jdbc.Driver
+
+# Connection pool settings (tune as needed once Team Member 3 implements pooling)
+db.pool.maxConnections=10
+db.pool.connectionTimeout=30000

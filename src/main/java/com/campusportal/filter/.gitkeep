@@ -1,0 +1,3 @@
+# This package will contain servlet filter classes.
+# Primary example: AuthFilter.java (Team Member 2 – Auth).
+# Filters intercept requests before they reach servlets.

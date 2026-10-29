@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="https://jakarta.ee/xml/ns/jakartaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee
+             https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd"
+         version="6.0"
+         metadata-complete="false">
+
+    <!--
+        web.xml – Deployment Descriptor for Campus Complaint Portal
+        Compatible with Jakarta Servlet 6.0 (Tomcat 10.1+).
+
+        NOTE FOR TEAM:
+        - Servlets use @WebServlet annotations and do NOT need to be listed here.
+          This file handles global settings: welcome pages, error pages, and filters.
+        - metadata-complete="false" allows the container to also scan annotations,
+          so @WebServlet declarations in Java classes remain active.
+        - The AuthFilter is registered here (not via @WebFilter) to guarantee
+          deterministic filter ordering.
+    -->
+
+    <display-name>Campus Complaint Portal</display-name>
+    <description>
+        A complaint management portal for campus students and administrators.
+    </description>
+
+    <!-- ===== Welcome file list ===== -->
+    <!--
+        When a user visits the root URL (e.g. http://localhost:8080/campus-complaint-portal/),
+        the server tries these files in order until it finds one that exists.
+    -->
+    <welcome-file-list>
+        <welcome-file>index.jsp</welcome-file>
+        <welcome-file>index.html</welcome-file>
+    </welcome-file-list>
+
+    <!-- ===== Session Configuration ===== -->
+    <!--
+        Session timeout: 30 minutes of inactivity.
+        HttpOnly: prevents JavaScript from reading the session cookie (XSS protection).
+        Secure: MUST be true in production (HTTPS only). Set false only for local HTTP dev.
+        TODO(Deployment): Switch <secure> to true before any staging/production deployment.
+    -->
+    <session-config>
+        <session-timeout>30</session-timeout>
+        <cookie-config>
+            <http-only>true</http-only>
+            <secure>false</secure>
+        </cookie-config>
+        <tracking-mode>COOKIE</tracking-mode>
+    </session-config>
+
+    <!-- ===== AuthFilter ===== -->
+    <!--
+        Protects all student and admin routes.
+        Registered in web.xml (not @WebFilter) for deterministic ordering.
+
+        Logic (implemented in AuthFilter.java):
+          - For /student/* : redirect to /auth/login?reason=session_expired if no valid session.
+          - For /admin/*   : additionally check session userRole == "ADMIN";
+                             if not, redirect to /student/dashboard with an error.
+    -->
+    <filter>
+        <filter-name>AuthFilter</filter-name>
+        <filter-class>com.campusportal.filter.AuthFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>AuthFilter</filter-name>
+        <url-pattern>/student/*</url-pattern>
+        <url-pattern>/admin/*</url-pattern>
+    </filter-mapping>
+
+    <!-- ===== Error Pages ===== -->
+    <!--
+        Team Member 1 (Frontend): JSP error pages live under WEB-INF/views/error/
+        and must be created before deployment. The forward happens server-side so
+        the WEB-INF location is accessible despite not being directly URL-addressable.
+    -->
+    <error-page>
+        <error-code>403</error-code>
+        <location>/WEB-INF/views/error/403.jsp</location>
+    </error-page>
+    <error-page>
+        <error-code>404</error-code>
+        <location>/WEB-INF/views/error/404.jsp</location>
+    </error-page>
+    <error-page>
+        <error-code>500</error-code>
+        <location>/WEB-INF/views/error/500.jsp</location>
+    </error-page>
+
+</web-app>
